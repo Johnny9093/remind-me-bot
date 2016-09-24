@@ -6,10 +6,13 @@ from reminder import Reminder
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardHide)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
                           ConversationHandler, Job)
-import logging, re
+import logging, re, os
+
+if not os.path.exists('c:\\log\\TheOctobot\\conv-bot'):
+    os.makedirs('c:\\log\\TheOctobot\\conv-bot')
 
 # Enable logging
-logging.basicConfig(filename='log.txt',
+logging.basicConfig(filename='c:\\log\\TheOctobot\\conv-bot\\log.txt',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
@@ -202,6 +205,8 @@ def activate_timer(bot, update, job_queue):
     job = Job(reminder_alarm, due, repeat=False, context=dict(chat_id=update.message.chat_id,
                                                               message=current_reminder.reminder_text))
     job_queue.put(job)
+
+    logger.info('Added new reminer:\n%s' % current_reminder.to_string())
 
     bot.sendMessage(update.message.chat_id,
                     text='Reminder successfully set!',
