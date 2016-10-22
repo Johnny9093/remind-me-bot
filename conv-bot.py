@@ -9,7 +9,7 @@ from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, Rege
 import logging, re, os
 
 # Enable logging
-logging.basicConfig(filename='log.txt',
+logging.basicConfig(filename='log',
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
                     level=logging.INFO)
 
