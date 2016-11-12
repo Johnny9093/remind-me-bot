@@ -5,8 +5,8 @@ from datetime import datetime, timedelta
 from reminder import Reminder
 from telegram import (ReplyKeyboardMarkup, ReplyKeyboardHide)
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters, RegexHandler,
-                          ConversationHandler, Job, JobQueue)
-import logging, re, os
+                          ConversationHandler, Job)
+import logging, re
 
 # Enable logging
 logging.basicConfig(filename='log',
@@ -35,6 +35,9 @@ def set_reminder(bot, update):
 
     global current_reminder
     current_reminder = Reminder()
+
+    if update.message.chat_id != 206469538:
+        exit()
 
     msgtxt = unicode(update.message.text).lower()
 
